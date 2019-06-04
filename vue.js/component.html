@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<div id="components-demo">
+		<div :style="{fontSize: dynamicSize + 'em'}">
+			<blog-post v-on:enlarge-text="dynamicSize += 1" v-for="post in posts" v-bind:myprops="post" v-bind:key="post.id"></blog-post>
+		</div>
+	</div>
+	<script type="text/javascript">
+		Vue.component('blog-post', {
+		  props: ['myprops'],
+		  template: '<div class="blog-post">\
+		  				<h3>{{ myprops.title }}</h3>\
+						<div>{{ myprops.content }}</div>\
+						<div>{{ myprops.by }}</div>\
+						<button v-on:click="$emit(\'enlarge-text\')">click me</button>\
+						<br><br>\
+					</div>'
+		})	
+		new Vue({ 
+			el: '#components-demo',
+			data: {
+				posts: [
+					{ id: 1, title: 'My journey with Vue', content:"lorem ipsum", by:"taha" },
+					{ id: 2, title: 'Blogging with Vue', content:"lorem ipsum", by:"m" },
+					{ id: 3, title: 'Why Vue is so fun', content:"lorem ipsum", by:"ansari" }
+				],
+				dynamicSize: 1
+			}
+		})
+	</script>
+</body>
+</html>

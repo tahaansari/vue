@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue</title>
+</head>
+<body>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<div id="app">
+		<h1 v-once>First Name: {{ firstName }}</h1>
+		<h1>Last Name: {{ lastName }}</h1>
+		<h1>Age: {{ age+1 }}</h1>
+		<p>Using mustaches: {{ rawHtml }}</p>
+		Using v-html directive: <div v-html="rawHtml"></div>
+		<h1 v-bind:id="'roll_' + rollno">Dynamic ID</h1>
+		<button v-bind:disabled="isDisable">This is Button</button>
+		<p v-if="isVisible" class="hello">This element is visible</p>
+		<a v-bind:href="url">Dynamic url</a>
+		<!-- <a v-on:[eventname]="doSomething">this is a button</a> -->
+
+		<p v-bind:class="{active: isActive, error: isError }">Multiple Class on condition</p>
+
+		<p v-bind:class="classObj">Class through obj</p>
+
+		<p  v-bind:class="[{ active: isActive, error:errorClass }]" class='myerror'>Conditional</p>
+
+		<h1 v-if="isAwesome">Hey!! Vue is awesome</h1>
+
+
+		<template v-if="ok">
+		  <h1>Title</h1>
+		  <p>Paragraph 1</p>
+		  <p>Paragraph 2</p>
+		</template>
+
+		<template v-if="loginType === 'username'">
+				<label>Username</label>
+				<input placeholder="Enter your username"  key="username-input">
+		</template>
+
+		<template v-else>
+				<label>Email</label>
+				<input placeholder="Enter your email address"  key="email-input">
+		</template>
+
+		<button @click="toggleMe">Toggle</button>
+
+		<p>For array</p>
+		<ul>
+			<li v-for="fruit in fruits">
+				Fruit name is {{ fruit.name }} price is {{ fruit.price }} 
+			</li>
+		</ul>
+
+		<p>For object</p>
+		<ul>
+			<li v-for="student,key,index in students">
+			 	{{ index }} {{ key }} {{ student }}
+			</li>
+		</ul>
+
+	</div>
+
+	<script type="text/javascript">
+
+		var obj = {    
+			firstName:"Taha",
+			lastName:"Ansari",
+			age:27,
+			rawHtml:"<p style='display:inline-block'>this is html code</p>",
+			rollno: 12,
+			isDisable: false,
+			isVisible: false,
+			url:"https://www.google.com/",
+			eventname:'click',
+			isActive: true,
+			isError: true,
+			classObj:{
+				active: true, 
+				error: true
+			},
+			checkActive:true,
+			errorClass:true,
+			isAwesome: false,
+			ok: false,
+			loginType:"username",
+			fruits:[
+				{name:'apple',price: 300},
+				{name:'mango',price: 500},
+				{name:'banana',price: 200},
+				{name:'grapes',price: 600}
+			],
+			students:{ name:'taha', age: 27, rollNo:5 }
+		}
+
+		var app = new Vue({
+			el:"#app",
+			data:obj,
+			methods:{
+				toggleMe:function(){
+					// alert('toggle clicked')
+					this.loginType = "email"
+				}
+			}
+		})
+
+	</script>
+</body>
+</html>
